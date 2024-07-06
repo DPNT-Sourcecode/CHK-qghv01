@@ -73,8 +73,13 @@ class Checkout
     group_id
   end
 
+  # returns the first group_id that contains sku
   def group_for(sku)
-    product_groups[sku]
+    matches = product_groups
+      .filter { |group_id, skus| skus.include? sku }
+
+    return sku unless matches
+    matches.entries.first[0]
   end
 
   def product_groups
@@ -133,6 +138,7 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
