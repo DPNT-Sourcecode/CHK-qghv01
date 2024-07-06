@@ -30,6 +30,7 @@ class Checkout
     volume_special_offer('K', 2, 150)
     volume_special_offer('P', 5, 200)
     volume_special_offer('Q', 3, 80)
+    volume_special_offer('U', 4, 120)
     volume_special_offer('V', 3, 130)
     volume_special_offer('V', 2, 90)
     unit_price('A', 50)
@@ -58,7 +59,6 @@ class Checkout
     unit_price('X', 90)
     unit_price('Y', 10)
     unit_price('Z', 50)
-
   end
 
   def claim_free_items(items, free_items)
@@ -99,7 +99,6 @@ class Checkout
       'F' => [3, 'F'],
       'N' => [3, 'M'],
       'R' => [3, 'Q'],
-      'U' => [4, 'U'],
     }
   end
 
@@ -122,4 +121,5 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
