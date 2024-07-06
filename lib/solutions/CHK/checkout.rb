@@ -32,7 +32,7 @@ class Checkout
     volume_special_offer('F', 3, 20)
     volume_special_offer('H', 10, 80)
     volume_special_offer('H', 5, 45)
-    volume_special_offer('K', 2, 150)
+    volume_special_offer('K', 2, 120)
     volume_special_offer('P', 5, 200)
     volume_special_offer('Q', 3, 80)
     volume_special_offer('U', 4, 120)
@@ -116,6 +116,7 @@ class Checkout
     volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
 
 

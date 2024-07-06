@@ -113,10 +113,17 @@ class ClientTest < Minitest::Test
     assert_equal 90, sut.checkout('SZTXYX')
   end
 
-  # def test_works_in_favor_of_client
-  #   assert_equal 65, sut.checkout('ZZZS')
-  # end
+  def test_works_in_favor_of_client
+    assert_equal 65, sut.checkout('ZZZS')
+  end
+
+  def test_another_failure
+    assert_equal 120, sut.checkout('KK')
+    assert_equal 190, sut.checkout('KKK')
+    assert_equal 240, sut.checkout('KKKK')
+  end
 end
+
 
 
 
