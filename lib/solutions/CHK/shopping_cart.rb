@@ -29,9 +29,8 @@ class ShoppingCart
   end
 
   def claim_group_offers(group_offers)
-    group_offers.each do |skus, offer|
+    group_offers.each do |skus, batch_size|
       items_in_group = skus.chars.map { |sku| quantity_for sku }.sum
-      batch_size, _ = offer
       batches = items_in_group / batch_size
       add_items(skus, batches)
       skus.chars.each do |sku|
@@ -56,5 +55,6 @@ class ShoppingCart
     free_items
   end
 end
+
 
 

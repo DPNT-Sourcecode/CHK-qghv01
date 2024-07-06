@@ -13,7 +13,7 @@ class Checkout
     shopping_cart = ShoppingCart.from_str(skus)
     shopping_cart.claim_free_items(free_item_offers)
     # FIXME
-    shopping_cart.claim_group_offers({ 'STXYZ' => [3, 45] })
+    shopping_cart.claim_group_offers({ 'STXYZ' => 3 })
 
     shopping_cart
       .items
@@ -26,8 +26,6 @@ class Checkout
   private
 
   def setup_offers
-    group_id = group_products(['S', 'T', 'X', 'Y', 'Z'])
-
     volume_special_offer('A', 5, 200)
     volume_special_offer('A', 3, 130)
     volume_special_offer('B', 2, 45)
@@ -40,7 +38,7 @@ class Checkout
     volume_special_offer('U', 4, 120)
     volume_special_offer('V', 3, 130)
     volume_special_offer('V', 2, 90)
-    volume_special_offer(group_id, 3, 45)
+    volume_special_offer('STXYZ', 3, 45)
     unit_price('A', 50)
     unit_price('B', 30)
     unit_price('C', 20)
@@ -67,25 +65,6 @@ class Checkout
     unit_price('X', 90)
     unit_price('Y', 10)
     unit_price('Z', 50)
-  end
-
-  def group_products(skus)
-    group_id = skus.to_s
-    product_groups[group_id] = skus
-    group_id
-  end
-
-  # returns the first group_id that contains sku
-  def group_for(sku)
-    matches = product_groups
-      .filter { |group_id, skus| skus.include? sku }
-
-    return sku if matches.empty?
-    matches.entries.first[0]
-  end
-
-  def product_groups
-    @product_groups ||= {}
   end
 
   def price_for_multiple(item_sku, count)
@@ -137,5 +116,6 @@ class Checkout
     volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
 
