@@ -24,7 +24,7 @@ class Checkout
   private
 
   def setup_offers
-    group_products(['S', 'T', 'X', 'Y', 'Z'])
+    group_id = group_products(['S', 'T', 'X', 'Y', 'Z'])
 
     volume_special_offer('A', 5, 200)
     volume_special_offer('A', 3, 130)
@@ -38,6 +38,7 @@ class Checkout
     volume_special_offer('U', 4, 120)
     volume_special_offer('V', 3, 130)
     volume_special_offer('V', 2, 90)
+    volume_special_offer(group_id, 3, 45)
     unit_price('A', 50)
     unit_price('B', 30)
     unit_price('C', 20)
@@ -125,6 +126,7 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
