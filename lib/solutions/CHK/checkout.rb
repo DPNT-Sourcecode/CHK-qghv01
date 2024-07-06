@@ -27,9 +27,7 @@ class Checkout
   private
 
   def price_for_multiple(item_sku, count)
-    offers = prices_with_volume_discounts[item_sku]
-
-    return count * price_for_single(item_sku) if offers.nil?
+    offers = prices_with_volume_discounts.fetch(item_sku)
 
     sum = 0
     offers.each do |offer|
@@ -39,6 +37,8 @@ class Checkout
       count -= batches * batch_size
     end
     sum + count * price_for_single(item_sku)
+  rescue KeyError
+    raise NoSuchSkuError
   end
 
   def price_for_single(item_sku)
@@ -48,17 +48,14 @@ class Checkout
   end
 
   def prices_with_volume_discounts
-    { 'A' => [[5, 200], [3, 130]], 'B' => [[2, 45]] }
-  end
-
-  def single_price_table
     {
-      'A' => 50,
-      'B' => 30,
-      'C' => 20,
-      'D' => 15,
-      'E' => 40
+      'A' => [[5, 200], [3, 130]],
+      'B' => [[2, 45]],
+      'C' => [[1, 20]],
+      'D' => [[1, 15]],
+      'E' => [[1, 40]]
     }
   end
 end
+
 
