@@ -14,6 +14,11 @@ class ShoppingCart
     items.fetch(sku, 0)
   end
 
+  def add_items(sku, number)
+    items[sku] = 0 unless items.key?(sku)
+    items[sku] += number
+  end
+
   def claim_free_items(free_item_offers)
     free_items = earned_free_items(free_item_offers)
 
@@ -27,11 +32,12 @@ class ShoppingCart
     group_offers.each do |skus, offer|
       items_in_group = skus.chars.map { |sku| quantity_for sku }.sum
       batch_size, _ = offer
-      to_be_batched = items_in_group / batch_size
+      batches = items_in_group / batch_size
+      add_items(skus, batches)
       skus.chars.each do |sku|
-        break if to_be_batched == 0
-        being_batched = [to_be_batched, quantity_for(sku)].min
-        to_be_batched -= being_batched
+        break if batches == 0
+        being_batched = [batches, quantity_for(sku)].min
+        batches -= being_batched
         items[sku] -= being_batched
       end
     end
@@ -50,4 +56,5 @@ class ShoppingCart
     free_items
   end
 end
+
 
