@@ -122,7 +122,3 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
-
-
-
-

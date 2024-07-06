@@ -104,5 +104,3 @@ class ClientTest < Minitest::Test
     assert_equal 20, sut.checkout('FFF')
   end
 end
-
-
