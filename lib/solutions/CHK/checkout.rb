@@ -14,16 +14,13 @@ class Checkout
   # Invalid input: return -1
 
   def checkout(skus)
-    visited = {}
-    sum = 0
+    skus
+      .chars
+      .group_by { |sku| sku }
+      .transform_values { |val| val.length }
+      .map { |sku, count| count * price_for(sku) }
+      .sum
 
-    skus.chars.each do |sku|
-      next if visited[sku]
-      visited[sku] = true
-      sum += price_for sku * skus.count(sku)
-    end
-
-    sum
   rescue NoSuchSkuError
     -1
   end
@@ -45,4 +42,5 @@ class Checkout
     }
   end
 end
+
 
