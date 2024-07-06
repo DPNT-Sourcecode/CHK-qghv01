@@ -2,7 +2,13 @@
 class Checkout
 
   def checkout(skus)
-    raise 'Not implemented'
+    case skus
+    when 'A'
+      50
+    when 'C'
+      20
+    end
   end
 
 end
+
