@@ -23,6 +23,20 @@ class ShoppingCart
     end
   end
 
+  def claim_group_offers(group_offers)
+    group_offers.each do |skus, offer|
+      items_in_group = skus.chars.map { |sku| quantity_for sku }.sum
+      batch_size, _ = offer
+      to_be_batched = items_in_group / batch_size
+      skus.chars.each do |sku|
+        break if to_be_batched == 0
+        being_batched = [to_be_batched, quantity_for(sku)].min
+        to_be_batched -= being_batched
+        items[sku] -= being_batched
+      end
+    end
+  end
+
   private
 
   attr_writer :items
@@ -36,3 +50,4 @@ class ShoppingCart
     free_items
   end
 end
+
