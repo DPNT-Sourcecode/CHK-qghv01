@@ -28,8 +28,13 @@ class Checkout
   private
 
   def price_for_multiple(item_sku, count)
+    volume_discount = prices_with_volume_discounts[item_sku]
 
-    count * price_for_single(item_sku)
+    return count * price_for_single(item_sku) if volume_discount.nil?
+
+    batch_size, batch_price = volume_discount
+    batches, units = count.divmod(batch_size)
+    batch_price * batches + units * price_for_single(item_sku)
   end
 
   def price_for_single(item_sku)
@@ -51,6 +56,7 @@ class Checkout
     }
   end
 end
+
 
 
 
