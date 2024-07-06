@@ -2,8 +2,9 @@
 class Hello
 
   def hello(friend_name)
-    'Hello I guess?'
+    'Hello, World!'
   end
 
 end
+
 
