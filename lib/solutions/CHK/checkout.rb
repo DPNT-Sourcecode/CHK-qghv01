@@ -68,9 +68,9 @@ class Checkout
   end
 
   def group_products(skus)
-    new_id = skus.to_s
-    product_groups[new_id] = skus
-    new_id
+    group_id = skus.to_s
+    product_groups[group_id] = skus
+    group_id
   end
 
   def group_for(sku)
@@ -133,6 +133,7 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
