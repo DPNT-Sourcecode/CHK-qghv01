@@ -29,10 +29,7 @@ class Checkout
       free_items['B'] = 1
     end
 
-    units_price = skus
-      .chars
-      .group_by { |sku| sku }
-      .transform_values { |val| val.length }
+    units_price = purchased_items(skus)
       .map { |sku, count| price_for_multiple(sku, count) }
       .sum
 
@@ -42,6 +39,10 @@ class Checkout
   end
 
   private
+
+  def purchased_items(skus)
+    skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
+  end
 
   def price_for_multiple(item_sku, count)
     sum = 0
@@ -64,6 +65,16 @@ class Checkout
     @volume_offers ||= {}
   end
 
+  def free_item_offers
+    @free_item_offers || {
+      'E' => [2, 'B']
+    }
+  end
+
+  def earned_free_items(purchased_items)
+
+  end
+
   def unit_price(sku, price)
     volume_special_offer(sku, 1, price)
   end
@@ -79,4 +90,5 @@ class Checkout
     end.sum
   end
 end
+
 
