@@ -15,13 +15,15 @@ class Checkout
 
   def checkout(skus)
     skus.chars.map {|sku| price_for sku}.sum
+  rescue NoSuchSkuError
+    -1
   end
 
   private
 
   def price_for(item_sku)
     single_price_table.fetch(item_sku)
-  rescue KeyNotFound
+  rescue KeyError
     raise NoSuchSkuError
   end
 
@@ -34,6 +36,7 @@ class Checkout
     }
   end
 end
+
 
 
 
