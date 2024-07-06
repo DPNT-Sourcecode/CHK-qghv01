@@ -2,6 +2,12 @@
 class Checkout
   NoSuchSkuError = Class.new(StandardError)
 
+  def initialize
+    unit_price('E', 40)
+    unit_price('C', 20)
+    unit_price('D', 15)
+  end
+
   # +------+-------+------------------------+
   # | Item | Price | Special offers         |
   # +------+-------+------------------------+
@@ -27,10 +33,10 @@ class Checkout
   private
 
   def price_for_multiple(item_sku, count)
-    offers = prices_with_volume_discounts.fetch(item_sku)
+    available_offers = offers.fetch(item_sku)
 
     sum = 0
-    offers.each do |offer|
+    available_offers.each do |offer|
       batch_size, batch_price = offer
       batches = count / batch_size
       sum += batch_price * batches
@@ -47,18 +53,11 @@ class Checkout
     raise NoSuchSkuError
   end
 
-  def prices_with_volume_discounts
-    {
-      'A' => [[5, 200], [3, 130], unit_price(50)],
-      'B' => [[2, 45], unit_price(30)],
-      'C' => [unit_price(20)],
-      'D' => [unit_price(15)],
-      'E' => [unit_price(40)]
-    }
-  end
-
   def offers
-    @offers ||= {}
+    @offers ||= {
+      'A' => [[5, 200], [3, 130], [1, 50]],
+      'B' => [[2, 45], [1, 30]],
+    }
   end
 
   def unit_price(sku, price)
@@ -68,6 +67,7 @@ class Checkout
     offers[sku] << [1, price]
   end
 end
+
 
 
 
