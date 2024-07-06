@@ -66,6 +66,12 @@ class Checkout
     unit_price('Z', 50)
   end
 
+  def group_products(skus)
+  end
+
+  def group_for(sku)
+    sku
+  end
 
   def purchased_items(skus)
     skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
@@ -119,5 +125,6 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
