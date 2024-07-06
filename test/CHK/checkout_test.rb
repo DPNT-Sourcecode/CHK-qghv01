@@ -72,16 +72,10 @@ class ClientTest < Minitest::Test
   end
 
   def test_failed_case_one
-    # AABBCCDDEE
-    # 2 x 50 + 45 + 2 x 20 + 2 x 15 + 2 x 40 - 30
     assert_equal 280, sut.checkout('ABCDEABCDE')
   end
 
-  # def test_failed_case_two
-    # assert_equal 280, sut.checkout('CCADDEEBBA')
-  # end
+  def test_failed_case_two
+    assert_equal 280, sut.checkout('CCADDEEBBA')
+  end
 end
-
-
-
-

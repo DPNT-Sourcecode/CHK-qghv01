@@ -27,7 +27,7 @@ class Checkout
     items = purchased_items(skus)
 
     free_items = earned_free_items(items)
-    update_items(items, free_items)
+    claim_free_items(items, free_items)
 
     units_price = items
       .map { |sku, count| price_for_multiple(sku, count) }
@@ -39,6 +39,13 @@ class Checkout
   end
 
   private
+
+  def claim_free_items(items, free_items)
+    free_items.each do |sku, qty|
+      purchased = items.fetch(sku, 0)
+      items[sku] = [0, purchased - qty].max
+    end
+  end
 
   def purchased_items(skus)
     skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
@@ -89,9 +96,3 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
-
-
-
-
-
-
