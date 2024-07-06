@@ -1,4 +1,5 @@
 # noinspection RubyUnusedLocalVariable
+
 class Checkout
   NoSuchSkuError = Class.new(StandardError)
 
@@ -121,6 +122,7 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
