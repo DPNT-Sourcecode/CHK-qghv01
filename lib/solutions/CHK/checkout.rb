@@ -12,16 +12,25 @@ class Checkout
   # Invalid input: return -1
 
   def checkout(skus)
-    case skus
-    when 'A'
-      50
-    when 'C'
-      20
-    else
-      -1
-    end
+    skus.inject { |sku| }
+    price_for skus
   end
 
+  private
+
+  def price_for(item_sku)
+    single_price_table[item_sku] || -1
+  end
+
+  def single_price_table
+    {
+      'A' => 50,
+      'B' => 30,
+      'C' => 20,
+      'D' => 15,
+    }
+  end
 end
+
 
 

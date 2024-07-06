@@ -27,8 +27,13 @@ class ClientTest < Minitest::Test
   end
 
   def test_invalid_input
-    assert_equal sut.checkout('X'), -1
+    assert_equal (-1), sut.checkout('X')
+  end
+
+  def test_multiple_skus
+    assert_equal 100, sut.checkout('ABC')
   end
 end
+
 
 
