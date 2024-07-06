@@ -49,7 +49,7 @@ class Checkout
     unit_price('H', 10)
     unit_price('I', 35)
     unit_price('J', 60)
-    unit_price('K', 80)
+    unit_price('K', 70)
     unit_price('L', 90)
     unit_price('M', 15)
     unit_price('N', 40)
@@ -57,14 +57,14 @@ class Checkout
     unit_price('P', 50)
     unit_price('Q', 30)
     unit_price('R', 50)
-    unit_price('S', 30)
+    unit_price('S', 20)
     unit_price('T', 20)
     unit_price('U', 40)
     unit_price('V', 50)
     unit_price('W', 20)
-    unit_price('X', 90)
-    unit_price('Y', 10)
-    unit_price('Z', 50)
+    unit_price('X', 17)
+    unit_price('Y', 20)
+    unit_price('Z', 21)
   end
 
   def price_for_multiple(item_sku, count)
@@ -116,5 +116,6 @@ class Checkout
     volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
 
