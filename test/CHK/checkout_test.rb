@@ -70,6 +70,15 @@ class ClientTest < Minitest::Test
   def test_multiple_get_one_free_offers
     assert_equal 370, sut.checkout('EEEEEEEEBBA')
   end
+
+  def test_failed_case_one
+    assert_equal 280, sut.checkout('ABCDEABCDE')
+  end
+
+  # def test_failed_case_two
+    # assert_equal 280, sut.checkout('CCADDEEBBA')
+  # end
 end
+
 
 
