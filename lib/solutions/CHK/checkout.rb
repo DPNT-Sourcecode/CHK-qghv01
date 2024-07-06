@@ -31,9 +31,14 @@ class Checkout
 
     return count * price_for_single(item_sku) if offers.nil?
 
-    batch_size, batch_price = offer
-    batches, units = count.divmod(batch_size)
-    batch_price * batches + units * price_for_single(item_sku)
+    sum = 0
+    offers.each do |offer|
+      batch_size, batch_price = offer
+      batches = count / batch_size
+      sum += batch_price * batches
+      count -= batches
+    end
+    sum + count * price_for_single(item_sku)
   end
 
   def price_for_single(item_sku)
@@ -56,10 +61,3 @@ class Checkout
     }
   end
 end
-
-
-
-
-
-
-
