@@ -34,10 +34,11 @@ class ShoppingCart
       batches = items_in_group / batch_size
       add_items(skus, batches)
 
+      remaining = batches * batch_size
       skus.chars.each do |sku|
-        break if batches == 0
-        being_batched = [items_in_group, quantity_for(sku)].min
-        items_in_group -= being_batched
+        break if remaining == 0
+        being_batched = [remaining, quantity_for(sku)].min
+        remaining -= being_batched
         add_items(sku, -being_batched)
         puts "Remove #{being_batched} instances of #{sku}"
       end
@@ -57,4 +58,5 @@ class ShoppingCart
     free_items
   end
 end
+
 
