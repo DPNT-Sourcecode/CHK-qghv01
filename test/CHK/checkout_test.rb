@@ -103,4 +103,9 @@ class ClientTest < Minitest::Test
   def test_multiple_fs
     assert_equal 20, sut.checkout('FFF')
   end
+
+  def test_failed_case_three
+    assert_equal 120, sut.checkout('UUU')
+  end
 end
+

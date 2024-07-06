@@ -99,7 +99,7 @@ class Checkout
       'F' => [3, 'F'],
       'N' => [3, 'M'],
       'R' => [3, 'Q'],
-      'U' => [3, 'U'],
+      'U' => [4, 'U'],
     }
   end
 
@@ -122,3 +122,4 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
