@@ -31,7 +31,7 @@ class Checkout
       .map { |sku, count| price_for_multiple(sku, count) }
       .sum
 
-    units_price - free_items_discount(skus, free_items)
+    units_price - free_items_discount(items, free_items)
   rescue NoSuchSkuError
     -1
   end
@@ -89,10 +89,12 @@ class Checkout
 
   def free_items_discount(purchased_items, free_items)
     free_items.map do |sku, qty|
-      price_for_multiple(sku, qty)
+      discounted_items = [qty, purchased_items.fetch(sku, 0)].min
+      price_for_multiple(sku, discounted_items)
     end.sum
   end
 end
+
 
 
 
