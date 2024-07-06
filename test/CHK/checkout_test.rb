@@ -33,7 +33,12 @@ class ClientTest < Minitest::Test
   def test_multiple_skus
     assert_equal 100, sut.checkout('ABC')
   end
+
+  def test_multiple_with_one_invalid
+    assert_equal (-1), sut.checkout('ABCX')
+  end
 end
+
 
 
 

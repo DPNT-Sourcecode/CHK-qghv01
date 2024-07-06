@@ -1,5 +1,7 @@
 # noinspection RubyUnusedLocalVariable
 class Checkout
+  NoSuchSkuError = Class.new(StandardError)
+
   # Our price table and offers:
   # +------+-------+----------------+
   # | Item | Price | Special offers |
@@ -12,14 +14,15 @@ class Checkout
   # Invalid input: return -1
 
   def checkout(skus)
-    skus.inject { |sku| }
-    price_for skus
+    skus.chars.map {|sku| price_for sku}.sum
   end
 
   private
 
   def price_for(item_sku)
-    single_price_table[item_sku] || -1
+    single_price_table.fetch(item_sku)
+  rescue KeyNotFound
+    raise NoSuchSkuError
   end
 
   def single_price_table
@@ -31,6 +34,7 @@ class Checkout
     }
   end
 end
+
 
 
 
