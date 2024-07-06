@@ -108,4 +108,3 @@ class ClientTest < Minitest::Test
     assert_equal 120, sut.checkout('UUU')
   end
 end
-

@@ -1,43 +1,5 @@
 # noinspection RubyUnusedLocalVariable
 
-class ShoppingCart
-  attr_reader :items
-
-  def self.from_str(skus)
-    items = skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
-    new(items)
-  end
-
-  def initialize(items)
-    @items = items
-  end
-
-  def quantity_for(sku)
-    items.fetch(sku, 0)
-  end
-
-  def claim_free_items(free_items)
-    free_items.each do |sku, qty|
-      purchased = quantity_for sku
-      items[sku] = [0, purchased - qty].max
-    end
-  end
-
-
-  def earned_free_items(offers)
-    free_items = Hash.new(0)
-    offers.each do |sku, offer|
-      batch_size, free_item_sku = offer
-      free_items[free_item_sku] += shopping_cart.quantity_for(sku) / batch_size
-    end
-    free_items
-  end
-
-  private
-
-  attr_writer :items
-end
-
 class Checkout
   NoSuchSkuError = Class.new(StandardError)
 
@@ -47,9 +9,7 @@ class Checkout
 
   def checkout(skus)
     shopping_cart = ShoppingCart.from_str(skus)
-
-    free_items = earned_free_items(shopping_cart)
-    shopping_cart.claim_free_items(free_items)
+    shopping_cart.claim_free_items(free_item_offers)
 
     shopping_cart
       .items
@@ -156,9 +116,41 @@ class Checkout
   end
 end
 
+class ShoppingCart
+  attr_reader :items
 
+  def self.from_str(skus)
+    items = skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
+    new(items)
+  end
 
+  def initialize(items)
+    @items = items
+  end
 
+  def quantity_for(sku)
+    items.fetch(sku, 0)
+  end
 
+  def claim_free_items(free_item_offers)
+    free_items = earned_free_items(free_item_offers)
 
+    free_items.each do |sku, qty|
+      purchased = quantity_for sku
+      items[sku] = [0, purchased - qty].max
+    end
+  end
 
+  private
+
+  attr_writer :items
+
+  def earned_free_items(offers)
+    free_items = Hash.new(0)
+    offers.each do |sku, offer|
+      batch_size, free_item_sku = offer
+      free_items[free_item_sku] += quantity_for(sku) / batch_size
+    end
+    free_items
+  end
+end
