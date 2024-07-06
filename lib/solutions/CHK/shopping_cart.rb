@@ -33,6 +33,8 @@ class ShoppingCart
       items_in_group = skus.chars.map { |sku| quantity_for sku }.sum
       batches = items_in_group / batch_size
       add_items(skus, batches)
+      return if batches == 0
+
       skus.chars.each do |sku|
         break if items_in_group == 0
         being_batched = [items_in_group, quantity_for(sku)].min
@@ -55,6 +57,7 @@ class ShoppingCart
     free_items
   end
 end
+
 
 
 
