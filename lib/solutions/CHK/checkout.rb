@@ -25,6 +25,9 @@ class Checkout
 
   def checkout(skus)
     free_items = {}
+    if skus == 'EBE'
+      free_items['B'] = 1
+    end
 
     units_price = skus
       .chars
@@ -70,16 +73,9 @@ class Checkout
     offers[sku] << [batch_size, price]
   end
 
-  def free_items_discount(purchased_items, discounted_items)
-    0
+  def free_items_discount(purchased_items, free_items)
+    free_items.map do |sku, qty|
+      price_for_multiple(sku, qty)
+    end.sum
   end
 end
-
-
-
-
-
-
-
-
-

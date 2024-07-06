@@ -63,7 +63,3 @@ class ClientTest < Minitest::Test
     assert_equal 80, sut.checkout('EBE')
   end
 end
-
-
-
-
