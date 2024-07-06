@@ -17,6 +17,7 @@ class ClientTest < Minitest::Test
       'B' => 30,
       'C' => 20,
       'D' => 15,
+      'E' => 40
     }
   end
 
@@ -50,5 +51,6 @@ class ClientTest < Minitest::Test
     assert_equal 240, sut.checkout('ABABACBB')
   end
 end
+
 
 
