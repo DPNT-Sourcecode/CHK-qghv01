@@ -6,18 +6,6 @@ class Checkout
     setup_offers
   end
 
-
-  # +------+-------+------------------------+
-  # | Item | Price | Special offers         |
-  # +------+-------+------------------------+
-  # | A    | 50    | 3A for 130, 5A for 200 |
-  # | B    | 30    | 2B for 45              |
-  # | C    | 20    |                        |
-  # | D    | 15    |                        |
-  # | E    | 40    | 2E get one B free      |
-  # | F    | 10    | 2F get one F free      |
-  # +------+-------+------------------------+
-
   def checkout(skus)
     items = purchased_items(skus)
 
@@ -43,6 +31,27 @@ class Checkout
     unit_price('D', 15)
     unit_price('E', 40)
     unit_price('F', 10)
+    unit_price('G', 20)
+    unit_price('H', 10)
+    unit_price('I', 35)
+    unit_price('J', 60)
+    unit_price('K', 80)
+    unit_price('L', 90)
+    unit_price('M', 15)
+    unit_price('N', 40)
+    unit_price('O', 10)
+    unit_price('P', 50)
+    unit_price('Q', 30)
+    unit_price('R', 50)
+    unit_price('S', 30)
+    unit_price('T', 20)
+    unit_price('U', 40)
+    unit_price('V', 50)
+    unit_price('W', 20)
+    unit_price('X', 90)
+    unit_price('Y', 10)
+    unit_price('Z', 50)
+
   end
 
   def claim_free_items(items, free_items)
@@ -102,5 +111,6 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
