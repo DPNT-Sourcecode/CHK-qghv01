@@ -78,7 +78,7 @@ class Checkout
     matches = product_groups
       .filter { |group_id, skus| skus.include? sku }
 
-    return sku unless matches
+    return sku if matches.empty?
     matches.entries.first[0]
   end
 
@@ -88,6 +88,7 @@ class Checkout
 
   def price_for_multiple(item_sku, count)
     sum = 0
+
     available_offers(item_sku).each do |offer|
       batch_size, batch_price = offer
       batches = count / batch_size
@@ -134,6 +135,7 @@ class Checkout
     volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
 
 
