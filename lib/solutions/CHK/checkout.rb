@@ -13,7 +13,7 @@ class Checkout
     shopping_cart = ShoppingCart.from_str(skus)
     shopping_cart.claim_free_items(free_item_offers)
     # FIXME
-    shopping_cart.claim_group_offers({ 'STXYZ' => 3 })
+    shopping_cart.claim_group_offers({ 'ZYSTX' => 3 })
 
     shopping_cart
       .items
@@ -38,7 +38,7 @@ class Checkout
     volume_special_offer('U', 4, 120)
     volume_special_offer('V', 3, 130)
     volume_special_offer('V', 2, 90)
-    unit_price('STXYZ', 45)
+    unit_price('ZYSTX', 45)
     unit_price('A', 50)
     unit_price('B', 30)
     unit_price('C', 20)
@@ -116,4 +116,5 @@ class Checkout
     volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
