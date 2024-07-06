@@ -3,9 +3,9 @@ class Checkout
   NoSuchSkuError = Class.new(StandardError)
 
   def initialize
-    volume_discount('A', 5, 200)
-    volume_discount('A', 3, 130)
-    volume_discount('B', 2, 45)
+    volume_special_offer('A', 5, 200)
+    volume_special_offer('A', 3, 130)
+    volume_special_offer('B', 2, 45)
     unit_price('A', 50)
     unit_price('B', 30)
     unit_price('C', 20)
@@ -26,20 +26,21 @@ class Checkout
   def checkout(skus)
     free_items = {}
 
-    skus
+    units_price = skus
       .chars
       .group_by { |sku| sku }
       .transform_values { |val| val.length }
-      .map { |sku, count| price_for_multiple(sku, count, free_items) }
+      .map { |sku, count| price_for_multiple(sku, count) }
       .sum
 
+    units_price - free_items_discount(skus, free_items)
   rescue NoSuchSkuError
     -1
   end
 
   private
 
-  def price_for_multiple(item_sku, count, free_items)
+  def price_for_multiple(item_sku, count)
     sum = 0
     available_offers(item_sku).each do |offer|
       batch_size, batch_price = offer
@@ -61,14 +62,19 @@ class Checkout
   end
 
   def unit_price(sku, price)
-    volume_discount(sku, 1, price)
+    volume_special_offer(sku, 1, price)
   end
 
-  def volume_discount(sku, batch_size, price)
+  def volume_special_offer(sku, batch_size, price)
     offers[sku] = [] unless offers.include?(sku)
     offers[sku] << [batch_size, price]
   end
+
+  def free_items_discount(purchased_items, discounted_items)
+    0
+  end
 end
+
 
 
 
