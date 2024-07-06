@@ -2,7 +2,8 @@
 class Hello
 
   def hello(friend_name)
-    raise 'Not implemented'
+    'Hello I guess?'
   end
 
 end
+
