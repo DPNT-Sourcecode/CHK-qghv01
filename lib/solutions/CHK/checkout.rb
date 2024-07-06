@@ -33,22 +33,18 @@ class Checkout
   private
 
   def price_for_multiple(item_sku, count)
-    available_offers = offers.fetch(item_sku)
-
     sum = 0
-    available_offers.each do |offer|
+    available_offers(item_sku).each do |offer|
       batch_size, batch_price = offer
       batches = count / batch_size
       sum += batch_price * batches
       count -= batches * batch_size
     end
     sum
-  rescue KeyError
-    raise NoSuchSkuError
   end
 
-  def price_for_single(item_sku)
-    single_price_table.fetch(item_sku)
+  def available_offers(sku)
+    offers.fetch(sku)
   rescue KeyError
     raise NoSuchSkuError
   end
@@ -60,13 +56,23 @@ class Checkout
     }
   end
 
+  def volume_discount(sku, batch_size, price)
+    maybe_init_offer_for sku
+    offers[sku] << [batch_size, price]
+  end
+
   def unit_price(sku, price)
+    maybe_init_offer_for sku
+    offers[sku] << [1, price]
+  end
+
+  def maybe_init_offer_for(sku)
     unless offers.include? sku
       offers[sku] = []
     end
-    offers[sku] << [1, price]
   end
 end
+
 
 
 
