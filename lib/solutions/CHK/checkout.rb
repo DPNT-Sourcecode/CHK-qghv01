@@ -68,10 +68,17 @@ class Checkout
   end
 
   def group_products(skus)
+    new_id = skus.to_s
+    product_groups[new_id] = skus
+    new_id
   end
 
   def group_for(sku)
-    sku
+    product_groups[sku]
+  end
+
+  def product_groups
+    @product_groups ||= {}
   end
 
   def purchased_items(skus)
@@ -126,6 +133,7 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
