@@ -107,4 +107,10 @@ class ClientTest < Minitest::Test
   def test_failed_case_three
     assert_equal 120, sut.checkout('UUU')
   end
+
+  def test_group_discount
+    assert_equal 45, sut.checkout('STX')
+    # assert_equal 90, sut.checkout('SZTXYX')
+  end
 end
+
