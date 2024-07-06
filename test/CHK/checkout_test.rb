@@ -110,14 +110,10 @@ class ClientTest < Minitest::Test
 
   def test_group_discount
     assert_equal 45, sut.checkout('STX')
-    # assert_equal 90, sut.checkout('SZTXYX')
+    assert_equal 90, sut.checkout('SZTXYX')
   end
 
   def test_works_in_favor_of_client
     assert_equal 65, sut.checkout('ZZZS')
   end
 end
-
-
-
-
