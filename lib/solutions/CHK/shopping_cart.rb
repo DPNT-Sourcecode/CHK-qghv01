@@ -39,7 +39,7 @@ class ShoppingCart
         break if items_in_group == 0
         being_batched = [items_in_group, quantity_for(sku)].min
         items_in_group -= being_batched
-        items[sku] -= being_batched
+        add_items(skus, -being_batched)
       end
     end
   end
@@ -57,6 +57,7 @@ class ShoppingCart
     free_items
   end
 end
+
 
 
 
