@@ -25,6 +25,7 @@ class Checkout
     volume_special_offer('A', 5, 200)
     volume_special_offer('A', 3, 130)
     volume_special_offer('B', 2, 45)
+    volume_special_offer('F', 3, 20)
     volume_special_offer('H', 10, 80)
     volume_special_offer('H', 5, 45)
     volume_special_offer('K', 2, 150)
@@ -96,7 +97,6 @@ class Checkout
   def free_item_offers
     @free_item_offers || {
       'E' => [2, 'B'],
-      'F' => [3, 'F'],
       'N' => [3, 'M'],
       'R' => [3, 'Q'],
     }
@@ -121,5 +121,6 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
