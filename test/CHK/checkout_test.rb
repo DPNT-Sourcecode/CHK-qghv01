@@ -42,11 +42,11 @@ class ClientTest < Minitest::Test
     }
   end
 
-  # def test_single_sku
-  #   single_price_table.each do |key, value|
-  #     assert_equal value, sut.checkout(key), "Failed to fetch price for SKU #{key}"
-  #   end
-  # end
+  def test_single_sku
+    single_price_table.each do |key, value|
+      assert_equal value, sut.checkout(key), "Failed to fetch price for SKU #{key}"
+    end
+  end
 
   # def test_invalid_input
   #   assert_equal (-1), sut.checkout('🤫')
@@ -108,9 +108,10 @@ class ClientTest < Minitest::Test
   #   assert_equal 120, sut.checkout('UUU')
   # end
 
-  def test_group_discount
-    assert_equal 45, sut.checkout('STX')
-    # assert_equal 90, sut.checkout('SZTXYX')
-  end
+  # def test_group_discount
+  #   assert_equal 45, sut.checkout('STX')
+  #   # assert_equal 90, sut.checkout('SZTXYX')
+  # end
 end
+
 

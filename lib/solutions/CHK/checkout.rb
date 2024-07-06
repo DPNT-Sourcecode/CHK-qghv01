@@ -69,7 +69,6 @@ class Checkout
 
   def price_for_multiple(item_sku, count)
     sum = 0
-    pp [item_sku, count]
 
     available_offers(item_sku).each do |offer|
       batch_size, batch_price = offer
@@ -117,6 +116,7 @@ class Checkout
     volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
 
 
