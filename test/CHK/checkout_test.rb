@@ -23,7 +23,7 @@ class ClientTest < Minitest::Test
 
   def test_single_sku
     single_price_table.each do |key, value|
-      assert_equal value, sut.checkout(key)
+      assert_equal value, sut.checkout(key), "Failed to fetch price for SKU #{key}"
     end
   end
 
@@ -54,6 +54,11 @@ class ClientTest < Minitest::Test
   def test_second_special_offer
     assert_equal 200, sut.checkout('AAAAA')
   end
+
+  def test_multiple_kinds_of_offers
+    assert_equal 380, sut.checkout('AAAAAAAAA')
+  end
 end
+
 
 

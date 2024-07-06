@@ -36,7 +36,7 @@ class Checkout
       sum += batch_price * batches
       count -= batches * batch_size
     end
-    sum + count * price_for_single(item_sku)
+    sum
   rescue KeyError
     raise NoSuchSkuError
   end
@@ -49,13 +49,14 @@ class Checkout
 
   def prices_with_volume_discounts
     {
-      'A' => [[5, 200], [3, 130]],
-      'B' => [[2, 45]],
+      'A' => [[5, 200], [3, 130], [1, 50]],
+      'B' => [[2, 45], [1, 30]],
       'C' => [[1, 20]],
       'D' => [[1, 15]],
       'E' => [[1, 40]]
     }
   end
 end
+
 
 
