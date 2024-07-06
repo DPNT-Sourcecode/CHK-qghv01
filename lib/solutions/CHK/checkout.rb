@@ -36,7 +36,7 @@ class Checkout
       batch_size, batch_price = offer
       batches = count / batch_size
       sum += batch_price * batches
-      count -= batches
+      count -= batches * batch_size
     end
     sum + count * price_for_single(item_sku)
   end
@@ -61,3 +61,4 @@ class Checkout
     }
   end
 end
+
