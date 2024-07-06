@@ -17,7 +17,8 @@ class ClientTest < Minitest::Test
       'B' => 30,
       'C' => 20,
       'D' => 15,
-      'E' => 40
+      'E' => 40,
+      'F' => 10
     }
   end
 
@@ -78,4 +79,9 @@ class ClientTest < Minitest::Test
   def test_failed_case_two
     assert_equal 280, sut.checkout('CCADDEEBBA')
   end
+
+  def test_multiple_fs
+    assert_equal 20, sut.checkout('FFF')
+  end
 end
+
