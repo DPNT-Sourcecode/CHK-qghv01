@@ -9,6 +9,17 @@ class ShoppingCart
   def initialize(items)
     @items = items
   end
+
+  def quantity_for(sku)
+    @items.fetch(sku, 0)
+  end
+
+  def claim_free_items(free_items)
+    free_items.each do |sku, qty|
+      purchased = quantity_for sku
+      @items[sku] = [0, purchased - qty].max
+    end
+  end
 end
 
 class Checkout
@@ -19,12 +30,12 @@ class Checkout
   end
 
   def checkout(skus)
-    items = ShoppingCart.from_str(skus)
+    shopping_cart = ShoppingCart.from_str(skus)
 
-    free_items = earned_free_items(items)
-    claim_free_items(items, free_items)
+    free_items = earned_free_items(shopping_cart)
+    shopping_cart.claim_free_items(free_items)
 
-    items
+    shopping_cart
       .map { |sku, count| price_for_multiple(sku, count) }
       .sum
   rescue NoSuchSkuError
@@ -74,12 +85,6 @@ class Checkout
     unit_price('Z', 50)
   end
 
-  def claim_free_items(items, free_items)
-    free_items.each do |sku, qty|
-      purchased = items.fetch(sku, 0)
-      items[sku] = [0, purchased - qty].max
-    end
-  end
 
   def purchased_items(skus)
     skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
@@ -114,11 +119,11 @@ class Checkout
     }
   end
 
-  def earned_free_items(purchased_items)
+  def earned_free_items(shopping_cart)
     free_items = Hash.new(0)
     free_item_offers.each do |sku, offer|
       batch_size, free_item_sku = offer
-      free_items[free_item_sku] += purchased_items.fetch(sku, 0) / batch_size
+      free_items[free_item_sku] += shopping_cart.quantity_for(sku) / batch_size
     end
     free_items
   end
@@ -133,6 +138,7 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
