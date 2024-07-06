@@ -18,7 +18,27 @@ class ClientTest < Minitest::Test
       'C' => 20,
       'D' => 15,
       'E' => 40,
-      'F' => 10
+      'F' => 10,
+      'G' => 20,
+      'H' => 10,
+      'I' => 35,
+      'J' => 60,
+      'K' => 80,
+      'L' => 90,
+      'M' => 15,
+      'N' => 40,
+      'O' => 10,
+      'P' => 50,
+      'Q' => 30,
+      'R' => 50,
+      'S' => 30,
+      'T' => 20,
+      'U' => 40,
+      'V' => 50,
+      'W' => 20,
+      'X' => 90,
+      'Y' => 10,
+      'Z' => 50,
     }
   end
 
@@ -29,7 +49,7 @@ class ClientTest < Minitest::Test
   end
 
   def test_invalid_input
-    assert_equal (-1), sut.checkout('X')
+    assert_equal (-1), sut.checkout('🤫')
   end
 
   def test_multiple_skus
@@ -37,7 +57,7 @@ class ClientTest < Minitest::Test
   end
 
   def test_multiple_with_one_invalid
-    assert_equal (-1), sut.checkout('ABCX')
+    assert_equal (-1), sut.checkout('ABC🤫')
   end
 
   def test_with_special_offer
@@ -45,7 +65,7 @@ class ClientTest < Minitest::Test
   end
 
   def test_invalid_with_special_offer
-    assert_equal (-1), sut.checkout('AAXA')
+    assert_equal (-1), sut.checkout('AA🤫A')
   end
 
   def test_with_multiple_special_offers
@@ -84,4 +104,5 @@ class ClientTest < Minitest::Test
     assert_equal 20, sut.checkout('FFF')
   end
 end
+
 
