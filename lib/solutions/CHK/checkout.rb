@@ -1,5 +1,16 @@
 # noinspection RubyUnusedLocalVariable
 
+class ShoppingCart
+  def self.from_str(skus)
+    items = skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
+    new(items)
+  end
+
+  def initialize(items)
+    @items = items
+  end
+end
+
 class Checkout
   NoSuchSkuError = Class.new(StandardError)
 
@@ -8,7 +19,7 @@ class Checkout
   end
 
   def checkout(skus)
-    items = purchased_items(skus)
+    items = ShoppingCart.from_str(skus)
 
     free_items = earned_free_items(items)
     claim_free_items(items, free_items)
@@ -122,6 +133,7 @@ class Checkout
     volume_offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
