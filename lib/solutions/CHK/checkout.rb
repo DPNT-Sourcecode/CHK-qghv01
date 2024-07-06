@@ -27,11 +27,13 @@ class Checkout
     items = purchased_items(skus)
 
     free_items = earned_free_items(items)
+    update_items(items, free_items)
+
     units_price = items
       .map { |sku, count| price_for_multiple(sku, count) }
       .sum
 
-    units_price - free_items_discount(items, free_items)
+    units_price
   rescue NoSuchSkuError
     -1
   end
@@ -86,14 +88,8 @@ class Checkout
     volume_offers[sku] = [] unless volume_offers.include?(sku)
     volume_offers[sku] << [batch_size, price]
   end
-
-  def free_items_discount(purchased_items, free_items)
-    free_items.map do |sku, qty|
-      discounted_items = [qty, purchased_items.fetch(sku, 0)].min
-      price_for_multiple(sku, discounted_items)
-    end.sum
-  end
 end
+
 
 
 
