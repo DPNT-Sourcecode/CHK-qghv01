@@ -55,13 +55,13 @@ class Checkout
   end
 
   def available_offers(sku)
-    offers.fetch(sku)
+    volume_offers.fetch(sku)
   rescue KeyError
     raise NoSuchSkuError
   end
 
-  def offers
-    @offers ||= {}
+  def volume_offers
+    @volume_offers ||= {}
   end
 
   def unit_price(sku, price)
@@ -69,8 +69,8 @@ class Checkout
   end
 
   def volume_special_offer(sku, batch_size, price)
-    offers[sku] = [] unless offers.include?(sku)
-    offers[sku] << [batch_size, price]
+    volume_offers[sku] = [] unless volume_offers.include?(sku)
+    volume_offers[sku] << [batch_size, price]
   end
 
   def free_items_discount(purchased_items, free_items)
@@ -79,3 +79,4 @@ class Checkout
     end.sum
   end
 end
+
