@@ -3,9 +3,14 @@ class Checkout
   NoSuchSkuError = Class.new(StandardError)
 
   def initialize
-    unit_price('E', 40)
+    volume_discount('A', 5, 200)
+    volume_discount('A', 3, 130)
+    volume_discount('B', 2, 45)
+    unit_price('A', 50)
+    unit_price('B', 30)
     unit_price('C', 20)
     unit_price('D', 15)
+    unit_price('E', 40)
   end
 
   # +------+-------+------------------------+
@@ -50,28 +55,19 @@ class Checkout
   end
 
   def offers
-    @offers ||= {
-      'A' => [[5, 200], [3, 130], [1, 50]],
-      'B' => [[2, 45], [1, 30]],
-    }
-  end
-
-  def volume_discount(sku, batch_size, price)
-    maybe_init_offer_for sku
-    offers[sku] << [batch_size, price]
+    @offers ||= {}
   end
 
   def unit_price(sku, price)
-    maybe_init_offer_for sku
-    offers[sku] << [1, price]
+    volume_discount(sku, 1, price)
   end
 
-  def maybe_init_offer_for(sku)
-    unless offers.include? sku
-      offers[sku] = []
-    end
+  def volume_discount(sku, batch_size, price)
+    offers[sku] = [] unless offers.include?(sku)
+    offers[sku] << [batch_size, price]
   end
 end
+
 
 
 
