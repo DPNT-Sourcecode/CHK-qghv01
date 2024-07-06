@@ -38,7 +38,7 @@ class Checkout
     volume_special_offer('U', 4, 120)
     volume_special_offer('V', 3, 130)
     volume_special_offer('V', 2, 90)
-    volume_special_offer('STXYZ', 3, 45)
+    unit_price('STXYZ', 45)
     unit_price('A', 50)
     unit_price('B', 30)
     unit_price('C', 20)
@@ -73,6 +73,9 @@ class Checkout
     available_offers(item_sku).each do |offer|
       batch_size, batch_price = offer
       batches = count / batch_size
+      if batches > 0
+        binding.irb
+      end
       sum += batch_price * batches
       count -= batches * batch_size
     end
@@ -116,6 +119,7 @@ class Checkout
     volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
 
 
