@@ -24,11 +24,13 @@ class Checkout
   # +------+-------+------------------------+
 
   def checkout(skus)
+    free_items = {}
+
     skus
       .chars
       .group_by { |sku| sku }
       .transform_values { |val| val.length }
-      .map { |sku, count| price_for_multiple(sku, count) }
+      .map { |sku, count| price_for_multiple(sku, count, free_items) }
       .sum
 
   rescue NoSuchSkuError
@@ -37,7 +39,7 @@ class Checkout
 
   private
 
-  def price_for_multiple(item_sku, count)
+  def price_for_multiple(item_sku, count, free_items)
     sum = 0
     available_offers(item_sku).each do |offer|
       batch_size, batch_price = offer
@@ -67,6 +69,7 @@ class Checkout
     offers[sku] << [batch_size, price]
   end
 end
+
 
 
 

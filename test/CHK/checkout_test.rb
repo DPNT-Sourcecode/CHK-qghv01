@@ -58,7 +58,12 @@ class ClientTest < Minitest::Test
   def test_multiple_kinds_of_offers
     assert_equal 380, sut.checkout('AAAAAAAAA')
   end
+
+  def test_get_one_free_offer
+    assert_equal 80, sut.checkout('EBE')
+  end
 end
+
 
 
 
