@@ -40,7 +40,6 @@ class ShoppingCart
         being_batched = [remaining, quantity_for(sku)].min
         remaining -= being_batched
         add_items(sku, -being_batched)
-        puts "Remove #{being_batched} instances of #{sku}"
       end
     end
   end
@@ -58,5 +57,6 @@ class ShoppingCart
     free_items
   end
 end
+
 
 
