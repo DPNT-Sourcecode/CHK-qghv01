@@ -49,14 +49,26 @@ class Checkout
 
   def prices_with_volume_discounts
     {
-      'A' => [[5, 200], [3, 130], [1, 50]],
-      'B' => [[2, 45], [1, 30]],
-      'C' => [[1, 20]],
-      'D' => [[1, 15]],
-      'E' => [[1, 40]]
+      'A' => [[5, 200], [3, 130], unit_price(50)],
+      'B' => [[2, 45], unit_price(30)],
+      'C' => [unit_price(20)],
+      'D' => [unit_price(15)],
+      'E' => [unit_price(40)]
     }
   end
+
+  def offers
+    @offers ||= {}
+  end
+
+  def unit_price(sku, price)
+    unless offers.include? sku
+      offers[sku] = []
+    end
+    offers[sku] << [1, price]
+  end
 end
+
 
 
 
