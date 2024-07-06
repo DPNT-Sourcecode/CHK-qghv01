@@ -24,12 +24,10 @@ class Checkout
   # +------+-------+------------------------+
 
   def checkout(skus)
-    free_items = {}
-    if skus == 'EBE'
-      free_items['B'] = 1
-    end
+    items = purchased_items(skus)
 
-    units_price = purchased_items(skus)
+    free_items = earned_free_items(items)
+    units_price = items
       .map { |sku, count| price_for_multiple(sku, count) }
       .sum
 
@@ -72,12 +70,12 @@ class Checkout
   end
 
   def earned_free_items(purchased_items)
-    result = {}
+    free_items = Hash.new(0)
     free_item_offers.each do |sku, offer|
-      batch_size, free_item = offer
-      result[free_item]
+      batch_size, free_item_sku = offer
+      free_items[free_item_sku] += purchased_items.fetch(sku, 0) / batch_size
     end
-    result
+    free_items
   end
 
   def unit_price(sku, price)
@@ -95,6 +93,7 @@ class Checkout
     end.sum
   end
 end
+
 
 
 

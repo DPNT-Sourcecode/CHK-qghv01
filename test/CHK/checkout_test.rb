@@ -62,4 +62,9 @@ class ClientTest < Minitest::Test
   def test_get_one_free_offer
     assert_equal 80, sut.checkout('EBE')
   end
+
+  def test_unused_get_one_free_offer
+    assert_equal 80, sut.checkout('EE')
+  end
 end
+
