@@ -11,12 +11,24 @@ class ClientTest < Minitest::Test
     Checkout.new
   end
 
-  def test_single_sku
-    assert_equal sut.checkout('A'), 50
+  def single_price_table
+    {
+      'A' => 50,
+      'B' => 30,
+      'C' => 20,
+      'D' => 15,
+    }
   end
 
-  def test_another_sku
-    assert_equal sut.checkout('C'), 20
+  def test_single_sku
+    single_price_table.each do |key, value|
+      assert_equal value, sut.checkout(key)
+    end
+  end
+
+  def test_invalid_input
+    assert_equal sut.checkout('X'), -1
   end
 end
+
 
