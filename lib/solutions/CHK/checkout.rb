@@ -72,7 +72,12 @@ class Checkout
   end
 
   def earned_free_items(purchased_items)
-
+    result = {}
+    free_item_offers.each do |sku, offer|
+      batch_size, free_item = offer
+      result[free_item]
+    end
+    result
   end
 
   def unit_price(sku, price)
@@ -90,5 +95,6 @@ class Checkout
     end.sum
   end
 end
+
 
 
