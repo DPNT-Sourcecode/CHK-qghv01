@@ -14,16 +14,18 @@ class Checkout
   # Invalid input: return -1
 
   def checkout(skus)
+    visited = {}
     sum = 0
-    single_price_table.each do |sku, price|
-      number_items = skus.count sku
-      sum += number_items * price
+
+    skus.chars.each do |sku|
+      next if visited[sku]
+      visited[sku] = true
+      sum += price_for sku * skus.count(sku)
     end
 
-    if sum == 0 && skus.length > 0
-      return -1
-    end
     sum
+  rescue NoSuchSkuError
+    -1
   end
 
   private
@@ -43,3 +45,4 @@ class Checkout
     }
   end
 end
+
