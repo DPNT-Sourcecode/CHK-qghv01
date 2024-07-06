@@ -18,7 +18,7 @@ class Checkout
       .chars
       .group_by { |sku| sku }
       .transform_values { |val| val.length }
-      .map { |sku, count| count * price_for(sku) }
+      .map { |sku, count| price_for_multiple(sku, count) }
       .sum
 
   rescue NoSuchSkuError
@@ -27,10 +27,19 @@ class Checkout
 
   private
 
-  def price_for(item_sku)
+  def price_for_multiple(item_sku, count)
+
+    count * price_for_single(item_sku)
+  end
+
+  def price_for_single(item_sku)
     single_price_table.fetch(item_sku)
   rescue KeyError
     raise NoSuchSkuError
+  end
+
+  def prices_with_volume_discounts
+    { 'A' => [3, 130], 'B' => [2, 45] }
   end
 
   def single_price_table
@@ -42,5 +51,6 @@ class Checkout
     }
   end
 end
+
 
 
