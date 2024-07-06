@@ -113,4 +113,3 @@ class ClientTest < Minitest::Test
     # assert_equal 90, sut.checkout('SZTXYX')
   end
 end
-
