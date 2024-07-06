@@ -50,7 +50,12 @@ class ClientTest < Minitest::Test
   def test_with_multiple_special_offers
     assert_equal 240, sut.checkout('ABABACBB')
   end
+
+  def test_second_special_offer
+    assert_equal 200, sut.checkout('AAAAA')
+  end
 end
+
 
 
 
