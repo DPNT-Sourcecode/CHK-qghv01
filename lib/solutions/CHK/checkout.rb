@@ -11,7 +11,6 @@ class Checkout
   # | C    | 20    |                |
   # | D    | 15    |                |
   # +------+-------+----------------+
-  # Invalid input: return -1
 
   def checkout(skus)
     skus
@@ -56,6 +55,7 @@ class Checkout
     }
   end
 end
+
 
 
 
