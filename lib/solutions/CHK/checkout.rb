@@ -86,10 +86,6 @@ class Checkout
     @product_groups ||= {}
   end
 
-  def purchased_items(skus)
-    skus.chars.group_by { |sku| sku }.transform_values { |val| val.length }
-  end
-
   def price_for_multiple(item_sku, count)
     sum = 0
     available_offers(item_sku).each do |offer|
@@ -101,8 +97,8 @@ class Checkout
     sum
   end
 
-  def available_offers(sku)
-    volume_offers.fetch(sku)
+  def available_offers(group_id)
+    volume_offers.fetch(group_id)
   rescue KeyError
     raise NoSuchSkuError
   end
@@ -133,11 +129,12 @@ class Checkout
   end
 
   # TODO: sort volume_offers automatically after inserting
-  def volume_special_offer(sku, batch_size, price)
-    volume_offers[sku] = [] unless volume_offers.include?(sku)
-    volume_offers[sku] << [batch_size, price]
+  def volume_special_offer(group_id, batch_size, price)
+    volume_offers[group_id] = [] unless volume_offers.include?(group_id)
+    volume_offers[group_id] << [batch_size, price]
   end
 end
+
 
 
 
