@@ -42,9 +42,3 @@ class ClientTest < Minitest::Test
     # assert_equal 130, sut.checkout('AAA')
   # end
 end
-
-
-
-
-
-

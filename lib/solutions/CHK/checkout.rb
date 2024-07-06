@@ -20,9 +20,10 @@ class Checkout
       sum += number_items * price
     end
 
+    if sum == 0 && skus.length > 0
+      return -1
+    end
     sum
-  rescue NoSuchSkuError
-    -1
   end
 
   private
@@ -42,9 +43,3 @@ class Checkout
     }
   end
 end
-
-
-
-
-
-
